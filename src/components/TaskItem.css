@@ -1,0 +1,10 @@
+.each-task {
+    
+}
+
+.each-task-btn {
+    border: none;
+    background-color: rgb(152, 236, 161);
+    color: rgb(29, 91, 29);
+    border-radius: 2px;
+}

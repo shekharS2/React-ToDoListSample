@@ -1,25 +1,43 @@
-import logo from './logo.svg';
+import { useState } from 'react';
+import uuid from 'react-uuid'
+
+import Inputs from './components/Inputs';
+import TaskItem from './components/TaskItem';
+
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+  const [tasks, setTasks] = useState([]);
+  
+  const handleSubmit = (input) => {
+    setTasks(prev => {
+      return [
+        ...prev,
+        {
+          id: uuid(),
+          name: input
+        }
+      ];
+    });
 
+  }
+  
+  const handleBtnClick = (id) => {
+    setTasks(prev => {
+      return prev.filter(task => task.id !== id);
+    });
+  }
+  
+  console.log(tasks);
+  return <div className='App'>
+    <div className='visible-elements'>
+        <Inputs handleSubmit={handleSubmit} />
+        <div className='task-container'>
+          {tasks.map((task) => {
+            return <TaskItem key={uuid()} task={task} handleBtnClick={handleBtnClick} />
+          })}
+        </div>
+    </div>
+  </div>
+}
 export default App;
